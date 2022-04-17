@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Audio Recorder</string>
+    <string name="record">Record</string>
+</resources>

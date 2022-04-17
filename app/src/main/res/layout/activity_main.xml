@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity" >
+
+
+    <LinearLayout
+        android:id="@+id/buttonSetUp"
+        android:weightSum="2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <Button
+            android:textColor="@color/black"
+            android:backgroundTint="#AFFBA7"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="5dp"
+            android:layout_weight="1"
+            android:id="@+id/recorded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/record" />
+
+        <Button
+            android:textColor="@color/black"
+            android:backgroundTint="#B6F7FF"
+            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_weight="1"
+            android:id="@+id/stop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Stop" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginHorizontal="10dp"
+        android:layout_below="@+id/buttonSetUp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/audioRecyclerView"
+        />
+
+</RelativeLayout>

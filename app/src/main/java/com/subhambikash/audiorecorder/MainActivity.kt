@@ -1,22 +1,35 @@
 package com.subhambikash.audiorecorder
 
+import android.content.ContentResolver
+import android.content.ContentUris
 import android.content.ContentValues
 import android.content.pm.PackageManager
+import android.database.Cursor
 import android.media.MediaRecorder
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
+import android.os.ParcelFileDescriptor
 import android.provider.MediaStore
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
+import java.io.FileDescriptor
 import java.time.LocalDateTime
 
 class MainActivity : AppCompatActivity() {
 
+
+
+    var audioUri: Uri? = null
+    var currentPosition: Int = 0
+    var isRecordButtonClicked: Boolean = false
+    var isRecordingStopped: Boolean = false
 
     lateinit var mp: MediaRecorder
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         recorded.setOnClickListener {
             createRecordingFolder("RecordedAudio")
             val path = Environment.getExternalStorageDirectory().absolutePath + "/RecordedAudio/" + LocalDateTime.now() + ".mp3"
+
             Toast.makeText(this, "recording started", Toast.LENGTH_SHORT).show()
             recorded.isEnabled = false
             stop.isEnabled = true
@@ -62,7 +76,11 @@ class MainActivity : AppCompatActivity() {
             mp.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
             mp.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
             mp.setOutputFile(path)
-            mp.prepare()
+            try {
+                mp.prepare()
+            } catch (e: Exception) {
+                Toast.makeText(this,"now only support until android 10",Toast.LENGTH_SHORT).show()
+            }
             mp.start()
         }
         stop.setOnClickListener {
@@ -74,8 +92,6 @@ class MainActivity : AppCompatActivity() {
             mp.release()
         }
 
-
-        
     }
 
 
@@ -95,6 +111,10 @@ class MainActivity : AppCompatActivity() {
         }
         return dir
     }
+
+
+
+
 
 
 }
